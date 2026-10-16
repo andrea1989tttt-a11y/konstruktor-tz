@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Конструктор ТЗ для цифрового продукта</title>
+  <meta name="description" content="Опишите идею, ответьте на вопросы и получите задание для разработки. Документ собирается только из ваших ответов.">
+  <meta name="theme-color" content="#C9B094">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="masthead">
+    <p class="wordmark">Конструктор ТЗ <span>для цифрового продукта</span></p>
+    <h1>От идеи — к понятному ТЗ</h1>
+    <p class="lede">Опишите свой продукт, ответьте на вопросы и получите задание для разработки.</p>
+    <p class="note">ТЗ описывает, что нужно создать. PRD — документ о том, для кого создаётся продукт, какую задачу он решает и каким требованиям должен соответствовать.</p>
+  </header>
+
+  <main>
+    <form id="brief" novalidate>
+      <p class="form-alert" id="form-alert" role="alert" hidden></p>
+
+      <fieldset class="block">
+        <legend>
+          <span class="num">01</span>
+          Идея
+        </legend>
+
+        <div class="field">
+          <label for="project-name">Название проекта</label>
+          <p class="hint" id="hint-name">Необязательно. Если названия ещё нет, оставьте поле пустым.</p>
+          <input id="project-name" name="project-name" type="text" autocomplete="off" placeholder="Например, «Семейный список покупок»" aria-describedby="hint-name">
+        </div>
+
+        <div class="field">
+          <label for="idea">Что хотите создать? <abbr title="обязательное поле">*</abbr></label>
+          <p class="hint" id="hint-idea">Своими словами: что это за продукт. Достаточно нескольких предложений.</p>
+          <textarea id="idea" name="idea" rows="4" required placeholder="Например, «Небольшой сайт, где семья собирает список покупок и отмечает, что уже куплено»" aria-describedby="hint-idea"></textarea>
+          <p class="error" id="error-idea" hidden></p>
+        </div>
+
+        <div class="field">
+          <p class="label" id="type-label">Тип продукта</p>
+          <p class="hint" id="hint-type">Выберите ближайший вариант. Если ни один не подходит, отметьте «Другое» и уточните.</p>
+          <div class="choice" role="radiogroup" aria-labelledby="type-label" aria-describedby="hint-type">
+            <label><input type="radio" name="product-type" value="Сайт"> Сайт</label>
+            <label><input type="radio" name="product-type" value="Веб-приложение"> Веб-приложение</label>
+            <label><input type="radio" name="product-type" value="Telegram-бот"> Telegram-бот</label>
+            <label><input type="radio" name="product-type" value="Мини-сервис"> Мини-сервис</label>
+            <label><input type="radio" name="product-type" value="Другое"> Другое</label>
+          </div>
+          <label class="sublabel" for="product-type-other">Если выбрали «Другое», уточните тип</label>
+          <input id="product-type-other" name="product-type-other" type="text" autocomplete="off" placeholder="Например, «расширение для браузера»">
+        </div>
+
+        <div class="field">
+          <label for="audience">Для кого создаётся продукт? <abbr title="обязательное поле">*</abbr></label>
+          <p class="hint" id="hint-audience">Кто будет им пользоваться. Можно описать одного конкретного человека.</p>
+          <textarea id="audience" name="audience" rows="3" required placeholder="Например, «Для семьи из трёх человек, которые вместе ходят в магазин»" aria-describedby="hint-audience"></textarea>
+          <p class="error" id="error-audience" hidden></p>
+        </div>
+
+        <div class="field">
+          <label for="task">Какую задачу пользователя он решает? <abbr title="обязательное поле">*</abbr></label>
+          <p class="hint" id="hint-task">Что человеку станет проще делать.</p>
+          <textarea id="task" name="task" rows="3" required placeholder="Например, «Перестать держать список покупок в переписке»" aria-describedby="hint-task"></textarea>
+          <p class="error" id="error-task" hidden></p>
+        </div>
+      </fieldset>
+
+      <fieldset class="block">
+        <legend>
+          <span class="num">02</span>
+          Первая версия
+        </legend>
+
+        <div class="field">
+          <p class="label" id="actions-label">Какие основные действия сможет выполнять пользователь? <abbr title="обязательное поле">*</abbr></p>
+          <p class="hint" id="hint-actions">Для первой версии желательно выбрать 3–5 действий. Каждое действие — отдельный пункт. Нужен хотя бы один.</p>
+          <div class="action-list" id="actions" role="group" aria-labelledby="actions-label" aria-describedby="hint-actions action-count"></div>
+          <p class="count" id="action-count" aria-live="polite"></p>
+          <button class="btn btn--quiet" type="button" id="add-action">Добавить действие</button>
+          <p class="error" id="error-actions" hidden></p>
+        </div>
+
+        <div class="field">
+          <label for="screens">Какие страницы, экраны или разделы нужны?</label>
+          <p class="hint" id="hint-screens">Перечислите только то, что хотите видеть в первой версии.</p>
+          <textarea id="screens" name="screens" rows="3" placeholder="Например, «Главный экран со списком и экран добавления товара»" aria-describedby="hint-screens"></textarea>
+        </div>
+
+        <div class="field">
+          <label for="inputs">Какие данные пользователь вводит?</label>
+          <p class="hint" id="hint-inputs">Текст, числа, файлы, выбор из списка — как вам удобно описать.</p>
+          <textarea id="inputs" name="inputs" rows="3" placeholder="Например, «Название товара и отметка, куплен ли он»" aria-describedby="hint-inputs"></textarea>
+        </div>
+
+        <div class="field">
+          <label for="outcome">Какой результат получает?</label>
+          <p class="hint" id="hint-outcome">Что человек видит или получает после своих действий.</p>
+          <textarea id="outcome" name="outcome" rows="3" placeholder="Например, «Общий список, в котором видно, что уже куплено»" aria-describedby="hint-outcome"></textarea>
+        </div>
+
+        <div class="field">
+          <p class="label">Нужны ли регистрация, оплата, сохранение данных и AI?</p>
+          <p class="hint">Для каждого пункта выберите один вариант. По умолчанию стоит «Пока не знаю».</p>
+
+          <div class="tri">
+            <p class="sublabel" id="reg-label">Регистрация</p>
+            <div class="choice" role="radiogroup" aria-labelledby="reg-label">
+              <label><input type="radio" name="registration" value="Нет"> Нет</label>
+              <label><input type="radio" name="registration" value="Да"> Да</label>
+              <label><input type="radio" name="registration" value="Пока не знаю" checked> Пока не знаю</label>
+            </div>
+          </div>
+
+          <div class="tri">
+            <p class="sublabel" id="pay-label">Оплата</p>
+            <div class="choice" role="radiogroup" aria-labelledby="pay-label">
+              <label><input type="radio" name="payment" value="Нет"> Нет</label>
+              <label><input type="radio" name="payment" value="Да"> Да</label>
+              <label><input type="radio" name="payment" value="Пока не знаю" checked> Пока не знаю</label>
+            </div>
+          </div>
+
+          <div class="tri">
+            <p class="sublabel" id="save-label">Сохранение данных</p>
+            <div class="choice" role="radiogroup" aria-labelledby="save-label">
+              <label><input type="radio" name="storage" value="Нет"> Нет</label>
+              <label><input type="radio" name="storage" value="Да"> Да</label>
+              <label><input type="radio" name="storage" value="Пока не знаю" checked> Пока не знаю</label>
+            </div>
+          </div>
+
+          <div class="tri">
+            <p class="sublabel" id="ai-label">AI</p>
+            <div class="choice" role="radiogroup" aria-labelledby="ai-label">
+              <label><input type="radio" name="ai" value="Нет"> Нет</label>
+              <label><input type="radio" name="ai" value="Да"> Да</label>
+              <label><input type="radio" name="ai" value="Пока не знаю" checked> Пока не знаю</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="out-of-scope">Что пока НЕ нужно включать в первую версию?</label>
+          <p class="hint" id="hint-scope">Идеи, которые хотите отложить. Если таких нет, оставьте поле пустым.</p>
+          <textarea id="out-of-scope" name="out-of-scope" rows="3" placeholder="Например, «Рецепты, доставка и несколько отдельных списков»" aria-describedby="hint-scope"></textarea>
+        </div>
+      </fieldset>
+
+      <fieldset class="block">
+        <legend>
+          <span class="num">03</span>
+          Оформление и ограничения
+        </legend>
+        <p class="block-note">Эти поля описывают ваш будущий продукт, а не оформление этого конструктора.</p>
+
+        <div class="field">
+          <label for="style">Желаемый стиль, цвета и настроение</label>
+          <p class="hint" id="hint-style">Как продукт должен ощущаться для его пользователя.</p>
+          <textarea id="style" name="style" rows="3" placeholder="Например, «Светлый и спокойный, без крупных иллюстраций»" aria-describedby="hint-style"></textarea>
+        </div>
+
+        <div class="field">
+          <label for="references">Примеры или ссылки на референсы</label>
+          <p class="hint" id="hint-refs">Названия продуктов или адреса страниц. Ссылка не обязательна.</p>
+          <textarea id="references" name="references" rows="3" placeholder="Например, «Похоже на обычные заметки в телефоне»" aria-describedby="hint-refs"></textarea>
+        </div>
+
+        <div class="field">
+          <p class="label" id="device-label">Где будут пользоваться продуктом?</p>
+          <p class="hint" id="hint-device">Компьютер, телефон или оба варианта.</p>
+          <div class="choice" role="radiogroup" aria-labelledby="device-label" aria-describedby="hint-device">
+            <label><input type="radio" name="device" value="Компьютер"> Компьютер</label>
+            <label><input type="radio" name="device" value="Телефон"> Телефон</label>
+            <label><input type="radio" name="device" value="Компьютер и телефон"> Оба</label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="tech">Технологии или платформа, если уже выбраны</label>
+          <p class="hint" id="hint-tech">Пишите только то, что уже решили. Если не выбирали — оставьте пустым.</p>
+          <textarea id="tech" name="tech" rows="2" placeholder="Например, «Только Telegram, без отдельного сайта»" aria-describedby="hint-tech"></textarea>
+        </div>
+
+        <div class="field">
+          <label for="limits">Дополнительные ограничения и пожелания</label>
+          <p class="hint" id="hint-limits">Язык, сроки, запреты, доступность — всё, что важно учесть.</p>
+          <textarea id="limits" name="limits" rows="3" placeholder="Например, «Интерфейс только на русском языке»" aria-describedby="hint-limits"></textarea>
+        </div>
+      </fieldset>
+
+      <fieldset class="block">
+        <legend>
+          <span class="num">04</span>
+          Проверка результата
+        </legend>
+
+        <div class="field">
+          <label for="works">Как пользователь поймёт, что продукт работает?</label>
+          <p class="hint" id="hint-works">Простое наблюдение: что произошло и это заметно.</p>
+          <textarea id="works" name="works" rows="3" placeholder="Например, «Человек добавляет товар и сразу видит его в списке»" aria-describedby="hint-works"></textarea>
+        </div>
+
+        <div class="field">
+          <label for="must">Какие действия обязательно должны успешно выполняться?</label>
+          <p class="hint" id="hint-must">Без этих действий первую версию нельзя считать готовой.</p>
+          <textarea id="must" name="must" rows="3" placeholder="Например, «Добавить товар и отметить его купленным»" aria-describedby="hint-must"></textarea>
+        </div>
+      </fieldset>
+
+      <div class="submit-row">
+        <button class="btn btn--solid" type="submit">Собрать ТЗ</button>
+        <p class="hint">В документ попадут только заполненные ответы. Пустые поля будут отмечены как «Не указано».</p>
+      </div>
+    </form>
+
+    <section class="result" aria-labelledby="result-title">
+      <h2 id="result-title">Ваше ТЗ</h2>
+      <p class="hint" id="hint-result">Текст можно выделить, скопировать вручную и отредактировать перед использованием. Повторное нажатие «Собрать ТЗ» заменит поле текущими ответами.</p>
+      <p class="status" id="result-status" role="status"></p>
+      <textarea id="result" rows="28" spellcheck="true" aria-labelledby="result-title" aria-describedby="hint-result" placeholder="Здесь появится собранный документ. Его можно править прямо в этом поле."></textarea>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
