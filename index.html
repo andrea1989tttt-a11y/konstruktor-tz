@@ -220,8 +220,12 @@
     </form>
 
     <section class="result" aria-labelledby="result-title">
-      <h2 id="result-title">Ваше ТЗ</h2>
+      <div class="result-bar">
+        <h2 id="result-title">Ваше ТЗ</h2>
+        <button class="btn btn--quiet" type="button" id="copy-brief" disabled>Скопировать ТЗ</button>
+      </div>
       <p class="hint" id="hint-result">Текст можно выделить, скопировать вручную и отредактировать перед использованием. Повторное нажатие «Собрать ТЗ» заменит поле текущими ответами.</p>
+      <p class="status" id="copy-status" role="status"></p>
       <p class="status" id="result-status" role="status"></p>
       <textarea id="result" rows="28" spellcheck="true" aria-labelledby="result-title" aria-describedby="hint-result" placeholder="Здесь появится собранный документ. Его можно править прямо в этом поле."></textarea>
     </section>

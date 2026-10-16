@@ -5,6 +5,8 @@
   const countNode = document.getElementById("action-count");
   const result = document.getElementById("result");
   const statusNode = document.getElementById("result-status");
+  const copyButton = document.getElementById("copy-brief");
+  const copyStatus = document.getElementById("copy-status");
   const formAlert = document.getElementById("form-alert");
 
   let actionSeq = 0;
@@ -358,9 +360,79 @@
 
     result.value = buildDocument(data);
     statusNode.textContent = "ТЗ собрано из текущих ответов. Текст можно править в поле ниже.";
+    showCopyStatus("");
+    syncCopyButton();
     result.scrollIntoView({ behavior: "smooth", block: "start" });
     result.focus();
   });
 
+  function resultIsEmpty() {
+    return result.value.trim() === "";
+  }
+
+  function syncCopyButton() {
+    copyButton.disabled = resultIsEmpty();
+  }
+
+  function showCopyStatus(message, isNote) {
+    copyStatus.textContent = message;
+    copyStatus.classList.toggle("status--note", Boolean(isNote));
+  }
+
+  function copyShortcut() {
+    const platform = navigator.platform || "";
+    const agent = navigator.userAgent || "";
+    if (/Mac|iPhone|iPad/.test(platform) || /Mac/.test(agent)) return "⌘C";
+    return "Ctrl+C";
+  }
+
+  function selectResult() {
+    result.focus();
+    result.select();
+    result.setSelectionRange(0, result.value.length);
+  }
+
+  function copyManually() {
+    let copied = false;
+    selectResult();
+    try {
+      copied = document.execCommand("copy");
+    } catch (error) {
+      copied = false;
+    }
+    if (copied) {
+      showCopyStatus("ТЗ скопировано", false);
+      return;
+    }
+    selectResult();
+    showCopyStatus(
+      "Браузер не разрешил скопировать текст автоматически. Поле выделено: нажмите " + copyShortcut() + ", чтобы скопировать его вручную.",
+      true
+    );
+  }
+
+  copyButton.addEventListener("click", function () {
+    const value = result.value;
+    if (value.trim() === "") return;
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(value).then(function () {
+        if (result.value !== value) return;
+        showCopyStatus("ТЗ скопировано", false);
+      }).catch(function () {
+        copyManually();
+      });
+      return;
+    }
+
+    copyManually();
+  });
+
+  result.addEventListener("input", function () {
+    showCopyStatus("");
+    syncCopyButton();
+  });
+
+  syncCopyButton();
   addAction("");
 })();
